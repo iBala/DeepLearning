@@ -10,12 +10,17 @@ import os.path
 from PIL import Image, ImageOps
 import argparse
 
-def load_data():
+
+def create_transform():
     transform = transforms.Compose(
         [transforms.Resize((28, 28)),
          transforms.ToTensor(),
          transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    return transform
 
+def load_data():
+
+    transform = create_transform()
     trainset = torchvision.datasets.MNIST(root='./data', train=True,
                                           download=True, transform=transform)
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
@@ -25,10 +30,13 @@ def load_data():
     #                                      download=True, transform=transform)
     # testloader = torch.utils.data.DataLoader(testset, batch_size=4,
     #                                          shuffle=False, num_workers=2)
+    return(trainloader, classes)
 
+
+def load_classes():
     classes = ('0', '1', '2', '3',
                '4', '5', '6', '7', '8', '9')
-    return(trainloader)
+    return classes
 
 # functions to show an image
 def imshow(img):
@@ -113,6 +121,7 @@ def load_model(path=None):
 
 if __name__ == "__main__":
     trainloader = load_data()
+    classes = load_classes()
     net = Net()
 
     criterion = nn.CrossEntropyLoss()
