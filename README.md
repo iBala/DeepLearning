@@ -14,6 +14,6 @@ https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/
 This model is built on the MNIST Dataset which has the data of hand written digits. We create a neural network with convolution layers and linear layers. 
 
 Usage:
-main.py -i <Image file complete path with name>
+main.py -i "Image file complete path with name"
 
 The file should have a single digit handwritten text.
